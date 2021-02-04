@@ -1,3 +1,4 @@
+
 # Copyright IBM Corp. All Rights Reserved.
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -6,8 +7,8 @@
 version: '2'
 
 volumes:
-  orderer2.example.com:
-  peer1.org1.example.com:
+  orderer1.example.com:
+  peer0.org2.example.com:
 
 networks:
   byfn:
@@ -16,14 +17,6 @@ networks:
 
 services:
 
-  ca_org1:
-    extends:
-      file:   base/docker-compose-ca.yaml
-      service: ca_org1
-    container_name: ca_org1
-    networks:
-      - byfn
-      
   orderer2.example.com:
     extends:
       file: base/peer-base.yaml
@@ -37,15 +30,15 @@ services:
         - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ./crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/msp:/var/hyperledger/orderer/msp
         - ./crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/:/var/hyperledger/orderer/tls
-        - orderer2.example.com:/var/hyperledger/production/orderer
+        - orderer3.example.com:/var/hyperledger/production/orderer
     ports:
     - 8050:8050
 
-  peer1.org1.example.com:
-    container_name: peer1.org1.example.com
+  peer0.org2.example.com:
+    container_name: peer0.org2.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.org1.example.com
+      service: peer0.org2.example.com
     networks:
       - byfn
 
