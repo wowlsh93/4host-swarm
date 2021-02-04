@@ -16,6 +16,14 @@ networks:
 
 services:
 
+  ca_org1:
+    extends:
+      file:   base/docker-compose-ca.yaml
+      service: ca_org1
+    container_name: ca_org1
+    networks:
+      - byfn
+      
   orderer2.example.com:
     extends:
       file: base/peer-base.yaml
